@@ -20,9 +20,9 @@ public class SnowballService {
         if(user.getSnowball() != null){
             throw new IllegalArgumentException("이미 생성된 스노우볼이 있습니다.");
         }
-        String sharedLink = makeShareLink();
+        String snowballLinkId = makeShareLink();
 
-        Snowball snowball = new Snowball(user.getNickname(), sharedLink, user);
+        Snowball snowball = new Snowball(user.getNickname(), snowballLinkId, user, "http://localhost:3000/main"+snowballLinkId);
         snowballRepository.save(snowball);
 
         user.setSnowball(snowball);
@@ -46,7 +46,7 @@ public class SnowballService {
     }
 
     public String makeShareLink(){
-        return "http://localhost:3000/main/" + UUID.randomUUID().toString();
+        return UUID.randomUUID().toString();
     }
 
     public Snowball findBySharedLink(String id){

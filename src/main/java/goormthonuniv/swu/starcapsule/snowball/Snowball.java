@@ -23,6 +23,9 @@ public class Snowball {
     @Column(name = "snowball_name")
     private String snowballName;
 
+    @Column(name="snowball_link_id")
+    private String snowballLinkId;
+
     @Column(name = "shared_link")
     private String sharedLink;
 
@@ -34,10 +37,11 @@ public class Snowball {
     @OneToMany(mappedBy = "snowball")
     private List<MyMemory> myMemories = new ArrayList<>();
     @Builder
-    public Snowball(String snowballName, String sharedLink, User user) {
+    public Snowball(String snowballName, String snowballLinkId, User user, String sharedLink) {
         this.snowballName = snowballName;
-        this.sharedLink = sharedLink;
+        this.snowballLinkId = snowballLinkId;
         this.user = user;
+        this.sharedLink = sharedLink;
     }
 
     public void updateSnowballName(String snowballName) {
