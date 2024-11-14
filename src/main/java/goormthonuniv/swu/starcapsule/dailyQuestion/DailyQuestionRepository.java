@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface DailyQuestionRepository extends JpaRepository<DailyQuestion ,Long> {
-    Optional<DailyQuestion> findByDate(LocalDate date);
+    Optional<DailyQuestion> findByDate(LocalDateTime date);
 
 }
