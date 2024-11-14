@@ -16,7 +16,7 @@ public class DailyQuestionDto {
         return DailyQuestionDto.builder()
                 .id(dailyQuestion.getId())
                 .question(dailyQuestion.getQuestion())
-                .date(dailyQuestion.getDate().atStartOfDay())
+                .date(dailyQuestion.getDate())
                 .build();
     }
 }
