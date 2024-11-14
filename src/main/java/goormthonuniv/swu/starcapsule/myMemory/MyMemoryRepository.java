@@ -25,6 +25,6 @@ public interface MyMemoryRepository extends JpaRepository<MyMemory, Long> {
             @Param("email") String email);
 
     @Query("SELECT CASE WHEN COUNT(m) > 0 THEN TRUE ELSE FALSE END FROM MyMemory m WHERE m.user.email = :userEmail AND FUNCTION('DATE', m.createAt) = :date")
-    boolean existsByUserEmailAndDate(@Param("userEmail") String userEmail, @Param("date") LocalDate date);
+    boolean existsByUserEmailAndDate(@Param("userEmail") String userEmail, @Param("date") LocalDateTime date);
 
 }

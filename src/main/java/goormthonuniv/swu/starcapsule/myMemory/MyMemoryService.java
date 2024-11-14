@@ -99,7 +99,7 @@ public class MyMemoryService {
 
 
     public boolean existsMemoryForUser(String email) {
-        LocalDate today = LocalDate.now();
+        LocalDateTime today = LocalDateTime.now();
         return myMemoryRepository.existsByUserEmailAndDate(email, today);
     }
 }
