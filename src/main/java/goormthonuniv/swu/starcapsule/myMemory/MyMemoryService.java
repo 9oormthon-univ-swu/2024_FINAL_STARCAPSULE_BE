@@ -85,7 +85,8 @@ public class MyMemoryService {
     // 내 추억에 쓴 글 있는지 없는지
     public boolean existsByDateAndUser(LocalDateTime date, String email) {
         LocalDateTime startOfDay = date.withHour(0).withMinute(0).withSecond(0).withNano(0);
-        LocalDateTime endOfDay = startOfDay.plusDays(1);
+        LocalDateTime endOfDay = startOfDay.plusHours(23).plusMinutes(59).plusSeconds(59).plusNanos(999999999);
+
         return myMemoryRepository.existsByCreateAtAndEmail(startOfDay, endOfDay, email);
     }
 
