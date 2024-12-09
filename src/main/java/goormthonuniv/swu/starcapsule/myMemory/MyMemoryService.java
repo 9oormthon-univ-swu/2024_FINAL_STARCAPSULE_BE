@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -84,8 +85,16 @@ public class MyMemoryService {
 
     // 내 추억에 쓴 글 있는지 없는지
     public boolean existsByDateAndUser(LocalDateTime date, String email) {
-        LocalDateTime startOfDay = date.withHour(0).withMinute(0).withSecond(0).withNano(0);
-        LocalDateTime endOfDay = startOfDay.plusDays(1);
+        // 한국 시간대 설정
+        ZoneId koreaZoneId = ZoneId.of("Asia/Seoul");
+
+        // LocalDateTime을 ZonedDateTime으로 변환
+        ZonedDateTime startOfDayKST = date.atZone(koreaZoneId).withHour(0).withMinute(0).withSecond(0).withNano(0);
+        ZonedDateTime endOfDayKST = startOfDayKST.plusDays(1);
+
+        // ZonedDateTime을 다시 LocalDateTime으로 변환
+        LocalDateTime startOfDay = startOfDayKST.toLocalDateTime();
+        LocalDateTime endOfDay = endOfDayKST.toLocalDateTime();
         return myMemoryRepository.existsByCreateAtAndEmail(startOfDay, endOfDay, email);
     }
 
