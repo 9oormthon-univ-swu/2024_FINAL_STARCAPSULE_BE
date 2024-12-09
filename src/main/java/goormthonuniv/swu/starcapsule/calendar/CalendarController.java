@@ -7,7 +7,6 @@ import goormthonuniv.swu.starcapsule.memory.MemoryService;
 import goormthonuniv.swu.starcapsule.myMemory.MyMemory;
 import goormthonuniv.swu.starcapsule.myMemory.MyMemoryDto;
 import goormthonuniv.swu.starcapsule.myMemory.MyMemoryService;
-import goormthonuniv.swu.starcapsule.snowball.MemoryDto;
 import goormthonuniv.swu.starcapsule.snowball.Snowball;
 import goormthonuniv.swu.starcapsule.snowball.SnowballService;
 import goormthonuniv.swu.starcapsule.user.User;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
@@ -63,7 +63,7 @@ public class CalendarController {
     public ResponseEntity<?> getCalendarData(
             @RequestHeader("Authorization") String token) {
 
-        String serverTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
+        String serverTime = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ISO_DATE_TIME);
         User user = userService.findByAccessToken(token);
 
         if (user == null) {
@@ -73,12 +73,9 @@ public class CalendarController {
 
         Snowball snowball = snowballService.getSnowballByUserEmail(user.getEmail());
 
-        boolean[] writtenArray = new boolean[32];
+        boolean[] writtenArray = new boolean[31];
 
-        // 시작일을 15일로 설정
         LocalDate startDate = LocalDate.of(2024, 11, 30);
-//        LocalDate startDate = LocalDate.of(2024, 11, 30);
-        
 
         int myMemoryCount = 0;
 
