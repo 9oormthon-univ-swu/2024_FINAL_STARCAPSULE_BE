@@ -96,6 +96,9 @@ public class MyMemoryService {
         LocalDateTime startOfDay = startOfDayKST.toLocalDateTime();
         LocalDateTime endOfDay = endOfDayKST.toLocalDateTime();
 
+        System.out.println("startOfDay: " + startOfDay);
+        System.out.println("endOfDay: " + endOfDay);
+
         // 쿼리 실행
         return myMemoryRepository.existsByCreateAtAndEmail(startOfDay, endOfDay, email);
     }
