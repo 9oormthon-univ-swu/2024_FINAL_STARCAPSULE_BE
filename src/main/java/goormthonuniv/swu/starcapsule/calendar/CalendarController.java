@@ -63,7 +63,7 @@ public class CalendarController {
     public ResponseEntity<?> getCalendarData(
             @RequestHeader("Authorization") String token) {
 
-        String serverTime = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ISO_DATE_TIME);
+        String serverTime = LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME);
         User user = userService.findByAccessToken(token);
 
         if (user == null) {
