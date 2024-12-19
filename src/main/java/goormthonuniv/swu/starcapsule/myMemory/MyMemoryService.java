@@ -84,18 +84,19 @@ public class MyMemoryService {
     }
 
     // 내 추억에 쓴 글 있는지 없는지
-    public boolean existsByDateAndUser(LocalDateTime date, String email) {
-      // 한국 시간대 설정
+    public boolean existsByDateAndUser(LocalDate date, String email) {
+        // 한국 시간대 설정
         ZoneId koreaZoneId = ZoneId.of("Asia/Seoul");
 
-        // LocalDateTime을 ZonedDateTime으로 변환
-        ZonedDateTime startOfDayKST = date.atZone(koreaZoneId);
-        ZonedDateTime endOfDayKST = startOfDayKST.plusDays(1).minusNanos(1);
+        // LocalDate를 ZonedDateTime으로 변환
+        ZonedDateTime startOfDayKST = date.atStartOfDay(koreaZoneId);
+        ZonedDateTime endOfDayKST = startOfDayKST.plusDays(1).minusSeconds(1); // 하루의 마지막 초까지 포함
 
-        // ZonedDateTime을 다시 LocalDateTime으로 변환
+        // ZonedDateTime을 LocalDateTime으로 변환
         LocalDateTime startOfDay = startOfDayKST.toLocalDateTime();
         LocalDateTime endOfDay = endOfDayKST.toLocalDateTime();
 
+        // 쿼리 실행
         return myMemoryRepository.existsByCreateAtAndEmail(startOfDay, endOfDay, email);
     }
 
