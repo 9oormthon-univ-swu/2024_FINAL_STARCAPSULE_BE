@@ -85,7 +85,7 @@ public class MyMemoryService {
 
     // 내 추억에 쓴 글 있는지 없는지
     public boolean existsByDateAndUser(LocalDateTime date, String email) {
-        // 한국 시간대 설정
+      // 한국 시간대 설정
         ZoneId koreaZoneId = ZoneId.of("Asia/Seoul");
 
         // LocalDateTime을 ZonedDateTime으로 변환
